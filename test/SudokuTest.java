@@ -1,7 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -77,27 +76,27 @@ public class SudokuTest {
 
     @Test
     public void checkSequence_correct() {
-        assertTrue(SudokuBoardChecker.checkSequence(new Integer[]{0, 0, 0, 0, 0, 0, 0, 0, 0}));
-        assertTrue(SudokuBoardChecker.checkSequence(new Integer[]{1, 2, 3, 0, 0, 0, 0, 0, 0}));
-        assertTrue(SudokuBoardChecker.checkSequence(new Integer[]{1, 2, 3, 0, 0, 9, 7, 0, 0}));
-        assertTrue(SudokuBoardChecker.checkSequence(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
+        assertTrue(Sudoku.checkSequence(new Integer[]{0, 0, 0, 0, 0, 0, 0, 0, 0}));
+        assertTrue(Sudoku.checkSequence(new Integer[]{1, 2, 3, 0, 0, 0, 0, 0, 0}));
+        assertTrue(Sudoku.checkSequence(new Integer[]{1, 2, 3, 0, 0, 9, 7, 0, 0}));
+        assertTrue(Sudoku.checkSequence(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9}));
     }
 
     @Test
     public void checkSequence_incorrect() {
-        assertFalse(SudokuBoardChecker.checkSequence(new Integer[]{}));
-        assertFalse(SudokuBoardChecker.checkSequence(new Integer[]{-8, 0, 0, 0, 0, 0, 0, 0, 0}));
-        assertFalse(SudokuBoardChecker.checkSequence(new Integer[]{2, 0, 0, 0, 0, 0, 2, 0, 0, 0}));
-        assertFalse(SudokuBoardChecker.checkSequence(new Integer[]{1, 2, 3, 4, 5, 6, 2, 7, 8, 9}));
-        assertFalse(SudokuBoardChecker.checkSequence(new Integer[]{1, 2, 3, 4, 0, 0, 0, 5, 6, 2}));
-        assertFalse(SudokuBoardChecker.checkSequence(new Integer[]{1, 2}));
-        assertFalse(SudokuBoardChecker.checkSequence(new Integer[]{4, 5, 8, 0, 0, 0, 0, 0, 5}));
+        assertFalse(Sudoku.checkSequence(new Integer[]{}));
+        assertFalse(Sudoku.checkSequence(new Integer[]{-8, 0, 0, 0, 0, 0, 0, 0, 0}));
+        assertFalse(Sudoku.checkSequence(new Integer[]{2, 0, 0, 0, 0, 0, 2, 0, 0, 0}));
+        assertFalse(Sudoku.checkSequence(new Integer[]{1, 2, 3, 4, 5, 6, 2, 7, 8, 9}));
+        assertFalse(Sudoku.checkSequence(new Integer[]{1, 2, 3, 4, 0, 0, 0, 5, 6, 2}));
+        assertFalse(Sudoku.checkSequence(new Integer[]{1, 2}));
+        assertFalse(Sudoku.checkSequence(new Integer[]{4, 5, 8, 0, 0, 0, 0, 0, 5}));
 
     }
 
     @Test
     public void makeSequqnces() {
-        List<List<Integer>> sequqnces = SudokuBoardChecker.makeSequqnces(correctBoard1);
+        List<List<Integer>> sequqnces = Sudoku.makeSequqnces(correctBoard1);
         assertEquals(sequqnces.size(), 9 * 3);
 
         //first two rows
@@ -119,22 +118,30 @@ public class SudokuTest {
 
     @Test
     public void checkBoard_correct() {
-        assertTrue(SudokuBoardChecker.checkBoard(correctBoard1));
+        assertTrue(Sudoku.checkBoard(correctBoard1));
     }
 
     @Test
     public void checkBoard_incorrectHorizontal() {
-        assertFalse(SudokuBoardChecker.checkBoard(incorrectBoardHorizontal));
+        assertFalse(Sudoku.checkBoard(incorrectBoardHorizontal));
     }
 
     @Test
     public void checkBoard_incorrectVertical() {
-        assertFalse(SudokuBoardChecker.checkBoard(incorrectBoardVertical));
+        assertFalse(Sudoku.checkBoard(incorrectBoardVertical));
     }
 
     @Test
     public void checkBoard_incorrectBox() {
-        assertFalse(SudokuBoardChecker.checkBoard(incorrectBoardBox));
+        assertFalse(Sudoku.checkBoard(incorrectBoardBox));
     }
+
+    @Test
+    public void solveBoard(){
+        int[][] solution = Sudoku.solveBoard(correctBoard1);
+
+        Sudoku.printBoard(solution);
+    }
+
 
 }

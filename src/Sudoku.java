@@ -1,8 +1,69 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuBoardChecker {
+public class Sudoku {
 
+    public static void printBoard(int[][] board) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static int[][] solveBoard(int[][] board) {
+        int[][] solution = new int[9][9];
+        solveBoard(board, solution);
+        return solution;
+
+    }
+
+    public static void solveBoard(int[][] board, int[][] solution) {
+
+        int[][][] possibilities = fillBoard(board);
+
+        for(int[][] possibility: possibilities){
+            if(checkBoard(possibility)){
+                if(isBoardComplete(possibility)){
+                    solution = possibility;
+                    return;
+                } else {
+                    solveBoard(possibility, solution);
+                }
+            }
+        }
+    }
+
+    public static int[][][] fillBoard(int[][] board){
+
+        List<int[][]> newBoards = new ArrayList<>();
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == 0) {
+                    for (int k = 1; k <= 9; k++) {
+                        int[][] newBoard = board.clone();
+                        newBoard[i][j] = k;
+                        newBoards.add(newBoard);
+                    }
+                }
+            }
+        }
+        return newBoards.toArray(new int[][][]{});
+    }
+
+    public static boolean isBoardComplete(int[][] board) {
+        for (int i = 0; i < 9; i += 3) {
+            for (int j = 0; j < 9; j += 3) {
+                if (board[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public static boolean checkBoard(int[][] board) {
         List<List<Integer>> sequnces = makeSequqnces(board);
